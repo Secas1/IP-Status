@@ -7,16 +7,15 @@ IFS=';'
 TOTAL=0
 COUNT_SUCCESS=0
 [ ! -f $INPUT ] && { echo "$INPUT file not found"; exit 99; }
-#echo "hostname;ip;connection_status" >> status.csv
 while read hostname ip
 do
 	if [[ $hostname == "Host" ]]; then
+		echo "$hostname;$ip;connection_status" >> status.csv
 		continue
 	fi
 	echo "================================="
 	echo "Hostname: $hostname"
 	echo "================================="
-	echo "$ip;success" >> ip.txt
 	ping -c 1 $ip
 
 	if [[ $? == 0 ]]; then
