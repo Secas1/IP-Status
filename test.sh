@@ -6,7 +6,7 @@ OLDIFS=$IFS
 IFS=';'
 COUNT_SUCCESS=0
 [ ! -f $INPUT ] && { echo "$INPUT file not found"; exit 99; }
-echo "hostname;ip;connection_status" >> status.csv
+#echo "hostname;ip;connection_status" >> status.csv
 while read hostname ip
 do
 	echo "================================="
@@ -17,11 +17,11 @@ do
 
 	if [[ $? == 0 ]]; then
 		echo "Ping Success"
-		echo "$hostname;$ip;success"
+		echo "$hostname;$ip;success" >> status.csv
 		let "COUNT_SUCCESS+=1"
 	else  
 		echo "Ping Fail"
-		echo "$hostname;$ip;fail"
+		echo "$hostname;$ip;fail" >> status.csv
 	fi
 	echo " "
 done < $INPUT
