@@ -12,7 +12,7 @@ do
 	echo "================================="
 	echo "Hostname: $hostname"
 	echo "================================="
-	echo "IP: $ip"
+	echo "$ip;success" >> ip.txt 
 	ping -c 2 $ip
 
 	if [[ $? == 0 ]]; then
