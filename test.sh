@@ -2,13 +2,22 @@
 
 
 INPUT=RandomDataTestCSV.csv
-OLDIFSS=$IFS
+OLDIFS=$IFS
 IFS=','
 [ ! -f $INPUT ] && { echo "$INPUT file not found"; exit 99; }
 
 while read hostname ip
 do
+	echo "================================="
 	echo "Hostname: $hostname"
+	echo "================================="
 	echo "IP: $ip"
+	ping -c $ip
+	if [[ $? == 0 ]]; then
+		echo "Ping Success"
+	else  
+		echo "Ping Fail"
+	fi
+	echo ""
 done < $INPUT
-IGS=$OLDIFS
+IFS=$OLDIFS
