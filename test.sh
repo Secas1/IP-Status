@@ -4,16 +4,20 @@
 INPUT=RandomDataTestCSV.csv
 OLDIFS=$IFS
 IFS=';'
+TOTAL=0
 COUNT_SUCCESS=0
 [ ! -f $INPUT ] && { echo "$INPUT file not found"; exit 99; }
 #echo "hostname;ip;connection_status" >> status.csv
 while read hostname ip
 do
+	if [[ $hostname == "Host" ]]; then
+		continue
+	fi
 	echo "================================="
 	echo "Hostname: $hostname"
 	echo "================================="
-	echo "$ip;success" >> ip.txt 
-	ping -c 2 $ip
+	echo "$ip;success" >> ip.txt
+	ping -c 1 $ip
 
 	if [[ $? == 0 ]]; then
 		echo "Ping Success"
@@ -24,8 +28,10 @@ do
 		echo "$hostname;$ip;fail" >> status.csv
 	fi
 	echo " "
+	let "TOTAL+=1"
 done < $INPUT
 
 echo "Connection established: $COUNT_SUCCESS"
+echo "Total IPs: $TOTAL"
 
 IFS=$OLDIFS
