@@ -13,17 +13,17 @@ do
 		echo "$hostname;$ip;connection_status" >> status.csv
 		continue
 	fi
-	echo "================================="
-	echo "Hostname: $hostname"
-	echo "================================="
+	#echo "================================="
+	#echo "Hostname: $hostname"
+	#echo "================================="
 	ping -c 1 $ip
 
 	if [[ $? == 0 ]]; then
-		echo "Ping Success"
+		#echo "Ping Success"
 		echo "$hostname;$ip;success" >> status.csv
 		let "COUNT_SUCCESS+=1"
 	else  
-		echo "Ping Fail"
+		#echo "Ping Fail"
 		echo "$hostname;$ip;fail" >> status.csv
 	fi
 	echo " "
